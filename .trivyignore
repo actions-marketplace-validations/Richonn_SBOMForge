@@ -1,0 +1,7 @@
+# CVEs in the cosign binary stdlib (Go 1.25.7).
+# These are not in SBOMForge's own code or dependencies.
+# Will be resolved when cosign publishes a release built with Go >= 1.26.2.
+CVE-2026-25679
+CVE-2026-32280
+CVE-2026-32281
+CVE-2026-32283
