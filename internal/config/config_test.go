@@ -147,7 +147,7 @@ func TestWriteOutput(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f.Close()
+	_ = f.Close()
 
 	c := &Config{OutputFile: f.Name()}
 	if err := c.WriteOutput("sbom-path", "/tmp/sbom.spdx.json"); err != nil {
@@ -169,7 +169,7 @@ func TestWriteSummary(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f.Close()
+	_ = f.Close()
 
 	c := &Config{SummaryFile: f.Name()}
 	if err := c.WriteSummary("## SBOM Generated"); err != nil {
