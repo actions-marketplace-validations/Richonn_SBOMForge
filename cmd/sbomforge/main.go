@@ -24,7 +24,7 @@ func run() error {
 
 	cfg, err := config.Load()
 	if err != nil {
-		return fmt.Errorf("error: %v\n", err)
+		return fmt.Errorf("load config: %w", err)
 	}
 
 	sbomPath, err := sbom.Generate(ctx, cfg)
