@@ -9,13 +9,17 @@ import (
 	"github.com/Richonn/sbomforge/internal/config"
 )
 
+var execCommand = func(ctx context.Context, name string, args ...string) *exec.Cmd {
+	return exec.CommandContext(ctx, name, args...)
+}
+
 func Sign(ctx context.Context, cfg *config.Config, sbomPath string) (string, error) {
 	if !cfg.Sign {
 		return "", nil
 	}
 	bundlePath := sbomPath + ".bundle"
 
-	cmd := exec.CommandContext(ctx, "cosign", "sign-blob", "--bundle="+bundlePath, "--yes", sbomPath)
+	cmd := execCommand(ctx, "cosign", "sign-blob", "--bundle="+bundlePath, "--yes", sbomPath)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 

@@ -1,0 +1,51 @@
+name: SBOMForge
+description: Automatically generates a signed SBOM using Syft and Cosign, and attaches it to your GitHub releases.
+
+branding:
+  icon: shield
+  color: green
+
+inputs:
+  github-token:
+    description: GitHub token to upload the SBOM as a release asset.
+    required: true
+  format:
+    description: SBOM format. One of spdx-json, cyclonedx-json, syft-json
+    required: false
+    default: spdx-json
+  artifact-name:
+    description: Output filename prefix.
+    required: false
+    default: sbom
+  sign:
+    description: Sign the SBOM with Cosign keyless
+    required: false
+    default: "true"
+  attach-to-release:
+    description: Attach the SBOM to the GitHub Release.
+    required: false
+    default: "true"
+  upload-to-summary:
+    description: Show a summary in the GitHub Actions Job Summary.
+    required: false
+    default: "true"
+  scan-path:
+    description: Directory to scan. Useful for monorepos.
+    required: false
+    default: .
+  fail-on-error:
+    description: Fail the job if SBOM generation fails.
+    required: false
+    default: "true"
+
+outputs:
+  sbom-path:
+    description: Local path of the generated SBOM file.
+  sbom-url:
+    description: Download URL of the SBOM on the Github Release.
+  signature-bundle:
+    description: Path to the Cosign signature bundle.
+
+runs:
+  using: docker
+  image: Dockerfile
