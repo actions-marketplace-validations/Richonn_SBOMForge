@@ -21,14 +21,14 @@ func TestWrite_ContainsFields(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f.Close()
+	_ = f.Close()
 
 	sbomFile, err := os.CreateTemp(t.TempDir(), "sbom-*.json")
 	if err != nil {
 		t.Fatal(err)
 	}
 	_, _ = sbomFile.WriteString(`{"artifacts":[{},{}]}`)
-	sbomFile.Close()
+	_ = sbomFile.Close()
 
 	cfg := &config.Config{
 		UploadToSummary: true,
@@ -59,7 +59,7 @@ func TestWrite_NoURL(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	f.Close()
+	_ = f.Close()
 
 	cfg := &config.Config{
 		UploadToSummary: true,
@@ -88,7 +88,7 @@ func TestCountComponents_SPDX(t *testing.T) {
 		t.Fatal(err)
 	}
 	_, _ = f.WriteString(`{"packages":[{},{},{}]}`)
-	f.Close()
+	_ = f.Close()
 
 	if got := countComponents(f.Name()); got != 3 {
 		t.Errorf("countComponents = %d, want 3", got)
@@ -101,7 +101,7 @@ func TestCountComponents_CycloneDX(t *testing.T) {
 		t.Fatal(err)
 	}
 	_, _ = f.WriteString(`{"components":[{},{}]}`)
-	f.Close()
+	_ = f.Close()
 
 	if got := countComponents(f.Name()); got != 2 {
 		t.Errorf("countComponents = %d, want 2", got)
@@ -120,7 +120,7 @@ func TestCountComponents_InvalidJSON(t *testing.T) {
 		t.Fatal(err)
 	}
 	_, _ = f.WriteString(`not json`)
-	f.Close()
+	_ = f.Close()
 
 	if got := countComponents(f.Name()); got != 0 {
 		t.Errorf("countComponents = %d, want 0 for invalid JSON", got)

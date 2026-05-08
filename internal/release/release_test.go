@@ -92,7 +92,7 @@ func TestUpload_Success(t *testing.T) {
 		t.Fatal(err)
 	}
 	_, _ = sbomFile.WriteString(`{}`)
-	sbomFile.Close()
+	_ = sbomFile.Close()
 
 	sbomURL, err := c.Upload(context.Background(), sbomFile.Name(), "")
 	if err != nil {

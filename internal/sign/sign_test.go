@@ -61,7 +61,7 @@ func TestSign_Success(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	sbomFile.Close()
+	_ = sbomFile.Close()
 
 	bundlePath, err := Sign(context.Background(), cfg, sbomFile.Name())
 	if err != nil {
